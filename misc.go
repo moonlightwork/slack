@@ -68,6 +68,12 @@ func getFile(ctx context.Context, client HTTPRequester, url, token string, write
 	body := &bytes.Buffer{}
 
 	req, err := http.NewRequest("GET", url, body)
+	if err != nil {
+		return err
+	}
+	if req == nil {
+		return fmt.Errorf("nil request")
+	}
 	req = req.WithContext(ctx)
 
 	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
